@@ -34,14 +34,10 @@ pipeline {
         
     
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    def imageName = 'talentplus-integration'
-                    def dockerFile = 'Dockerfile'
-
-                    // Build the Docker image
-                    sh "docker build -t ${imageName} -f ${dockerFile} ."
+         stage('Build docker image'){
+            steps{
+                script{
+                    sh 'docker build -t javatechie/devops-integration .'
                 }
             }
         }
@@ -50,8 +46,8 @@ pipeline {
         stage('Push image to Hub') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                        sh 'docker login -u emmylong1 -p ${dockerhubpwd}'
+                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'Emmylong1')]) {
+                        sh 'docker login -u emmylong1 -p ${Emmylong1}'
                     }
                     sh 'docker push emmylong1/talentplus-integration'
                 }
