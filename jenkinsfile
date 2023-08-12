@@ -45,14 +45,7 @@ pipeline {
                 }
             }
         }
-        
-        stage('Debug') {
-            steps {
-               script {
-                sh 'ls -la /var/lib/jenkins/workspace/Talent-plus/'
-           }
-        }
-   }
+    
         
         stage('Push image to Hub') {
             steps {
