@@ -1,0 +1,75 @@
+pipeline {
+    agent any
+
+    stages {
+        stage("Clean Workspace") {
+            steps {
+                sh 'rm -rf *'
+            }
+        }
+
+        stage("Git checkout") {
+            steps {
+                git branch: 'main', url: 'https://github.com/Emmylong1/demo-counter-app-1.git'
+            }
+        }
+
+        stage("Maven Build") {
+            steps {
+                sh "mvn test"
+            }
+        }
+
+        stage("Unit Testing") {
+            steps {
+                sh "mvn verify -Dskip.unit.tests"
+            }
+        }
+
+        stage("Integration Testing") {
+            steps {
+                sh "mvn clean install"
+            }
+        }
+        
+    
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def imageName = 'talentplus-integration'
+                    def dockerFile = 'Dockerfile'
+
+                    // Build the Docker image
+                    sh "docker build -t ${imageName} -f ${dockerFile} ."
+                }
+            }
+        }
+        
+        stage('Debug') {
+            steps {
+               script {
+                sh 'ls -la /var/lib/jenkins/workspace/Talent-plus/'
+           }
+        }
+   }
+        
+        stage('Push image to Hub') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                        sh 'docker login -u emmylong1 -p ${dockerhubpwd}'
+                    }
+                    sh 'docker push emmylong1/talentplus-integration'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean the workspace after each build
+            sh 'rm -rf *'
+        }
+    }
+}
