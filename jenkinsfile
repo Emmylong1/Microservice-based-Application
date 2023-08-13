@@ -33,15 +33,7 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh "docker build -t emmylong1/talentplus-integration ."
-                }
-            }
-        }
-    }
-     
+   
      stage('identifying misconfigs using datree in helm charts'){
         steps {
             script{
