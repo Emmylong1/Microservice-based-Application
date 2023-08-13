@@ -35,8 +35,8 @@ pipeline {
         stage('Helm Deploy') {
             steps {
                 script {
-                    def helmChart = "microserviceapp"  // Replace with your Helm chart name
-                    def releaseName = "springboot"  // Replace with your desired release name
+                    def helmChart = "microserviceapp"  
+                    def releaseName = "springboot"  
                     def namespace = "helm-deployment"
                     def imageTag = env.BUILD_NUMBER
 
