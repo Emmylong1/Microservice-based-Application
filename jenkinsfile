@@ -35,7 +35,7 @@ pipeline {
           stage('Build Docker Image') {
             steps {
                 script {
-                    def password = 'emmy'
+                    def password = 'Emmylong1'
                     sh """
                     echo $password | sudo -S docker build -t emmylong1/talentplus-integration .
                     """
