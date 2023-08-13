@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8081
+  port: 8085
 
 ingress:
   enabled: false
@@ -69,7 +69,7 @@ resources: {}
   #   memory: 128Mi
 
 autoscaling:
-  enabled: true
+  enabled: fals
   minReplicas: 1
   maxReplicas: 5
   targetCPUUtilizationPercentage: 80

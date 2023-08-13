@@ -32,12 +32,15 @@ pipeline {
             }
         }
 
-        stage('Identifying misconfigs using datree in helm charts') {
+        stage('Helm Deploy') {
             steps {
                 script {
-                    dir('microserviceapp') {
-                        sh 'datree test .'
-                    }
+                    def helmChart = "microserviceapp"  // Replace with your Helm chart name
+                    def releaseName = "springboot"  // Replace with your desired release name
+                    def namespace = "helm-deployment"
+                    def imageTag = env.BUILD_NUMBER
+
+                    sh "helm upgrade ${releaseName} --install ${helmChart} --namespace ${namespace} --set image.tag=${imageTag}"
                 }
             }
         }
