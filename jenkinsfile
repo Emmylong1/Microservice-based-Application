@@ -13,7 +13,26 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-
+         stage('UNIT testing'){
+            
+            steps{
+                
+                script{
+                    
+                    sh 'mvn test'
+                }
+            }
+        }
+        stage('Integration testing'){
+            
+            steps{
+                
+                script{
+                    
+                    sh 'mvn verify -DskipUnitTests'
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
