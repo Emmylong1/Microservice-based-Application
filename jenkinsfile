@@ -1,37 +1,23 @@
 pipeline {
     agent any
 
-    environment {
-        SUDO_PASSWORD = credentials('sudopwd') // Use the actual ID of your sudo credentials
-    }
-
     stages {
-        stage("Clean Workspace") {
-            steps {
-                sh 'rm -rf *'
-            }
-        }
-
         stage("Git checkout") {
             steps {
                 git branch: 'main', url: 'https://github.com/Emmylong1/Microservice-based-Application.git'
             }
         }
 
-        stage("Maven Build and Test") {
+        stage("Maven Build") {
             steps {
-                script {
-                    sh "mvn clean install"
-                }
+                sh "mvn clean install"
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'sudopwd', variable: 'SUDO_PASSWORD')]) {
-                        sh "echo \$SUDO_PASSWORD | sudo -S docker build -t emmylong1/talentplus-integration ."
-                    }
+                    sh "docker build -t emmylong1/talentplus-integration ."
                 }
             }
         }
@@ -39,7 +25,6 @@ pipeline {
 
     post {
         always {
-            // Clean the workspace after each build
             sh 'rm -rf *'
         }
     }
