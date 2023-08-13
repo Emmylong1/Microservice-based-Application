@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage("Git checkout") {
             steps {
-                git branch: 'main', url: 'https://github.com/Emmylong1/Microservice-based-Application.git'
+                script {
+                    git branch: 'main', url: 'https://github.com/Emmylong1/Microservice-based-Application.git'
+                }
             }
         }
 
@@ -13,36 +15,33 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-         stage('UNIT testing'){
-            
-            steps{
-                
-                script{
-                    
+
+        stage('UNIT testing') {
+            steps {
+                script {
                     sh 'mvn test'
                 }
             }
         }
-        stage('Integration testing'){
-            
-            steps{
-                
-                script{
-                    
-                    sh 'mvn verify -DskipUnitTests'
+
+        stage('Integration testing') {
+            steps {
+                script {
+                    sh 'mvn verify -DskipTests=false'
                 }
             }
         }
-   
-     stage('identifying misconfigs using datree in helm charts'){
-        steps {
-            script{
-                  dir('microserviceapp') {
-                    sh 'helm datree test .'
-                  }
+
+        stage('Identifying misconfigs using datree in helm charts') {
+            steps {
+                script {
+                    dir('microserviceapp') {
+                        sh 'helm datree test .'
+                    }
+                }
             }
         }
-     }
+    }
 
     post {
         always {
