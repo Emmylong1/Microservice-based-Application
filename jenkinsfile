@@ -32,24 +32,21 @@ pipeline {
             }
         }
         
-    
-
-         stage('Build docker image'){
-            steps{
-                script{
-                    sh 'docker build -t emmylong1/talentplus-integration .'
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'sudo docker build -t emmylong1/talentplus-integration .'
                 }
             }
         }
-    
         
-        stage('Push image to Hub') {
+        stage('Push Image to Docker Hub') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'Emmylong1')]) {
-                        sh 'docker login -u emmylong1 -p ${Emmylong1}'
+                        sh 'sudo docker login -u emmylong1 -p $Emmylong1'
                     }
-                    sh 'docker push emmylong1/talentplus-integration'
+                    sh 'sudo docker push emmylong1/talentplus-integration'
                 }
             }
         }
