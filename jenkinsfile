@@ -35,11 +35,11 @@ pipeline {
           stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t javatechie/devops-integration .'
+                    sh 'docker build -t emmylong1/talentplus-integration  .'
                 }
             }
         }
-        
+
     post {
         always {
             // Clean the workspace after each build
