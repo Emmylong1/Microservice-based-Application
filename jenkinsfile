@@ -41,6 +41,16 @@ pipeline {
             }
         }
     }
+     
+     stage('identifying misconfigs using datree in helm charts'){
+        steps {
+            script{
+                  dir('microserviceapp') {
+                    sh 'helm datree test .'
+                  }
+            }
+        }
+     }
 
     post {
         always {
