@@ -12,29 +12,20 @@ pipeline {
             }
         }
 
-        stage("Git checkout") {
+        stage("Git Checkout") {
             steps {
                 script {
-                    sh "git config --global credential.helper '!f() { echo password=$SUDO_PASSWORD; }; f'"
+                    sh "git config --global credential.helper '!f() { echo password=\$SUDO_PASSWORD; }; f'"
                     sh "git clone https://github.com/Emmylong1/Microservice-based-Application.git"
                 }
             }
         }
 
-        stage("Maven Build") {
+        stage("Maven Build and Test") {
             steps {
-                sh "mvn clean install"
-            }
-        }
-           stage("Unit Testing") {
-            steps {
-                sh "mvn verify -Dskip.unit.tests"
-            }
-        }
-
-         stage("Integration Testing") {
-            steps {
-                sh "mvn clean install"
+                script {
+                    sh "mvn clean install -Dskip.unit.tests=false"
+                }
             }
         }
 
@@ -42,7 +33,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'sudopwd', variable: 'SUDO_PASSWORD')]) {
-                        sh "echo $SUDO_PASSWORD | sudo -S docker build -t emmylong1/talentplus-integration ."
+                        sh "echo \$SUDO_PASSWORD | sudo -S docker build -t emmylong1/talentplus-integration ."
                     }
                 }
             }
