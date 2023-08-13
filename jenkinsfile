@@ -33,12 +33,14 @@ pipeline {
         }
         
         stage('Build Docker Image') {
-            steps {
-                script {
-                    sh 'sudo docker build -t emmylong1/talentplus-integration .'
-                }
-            }
+    steps {
+        script {
+            def password = 'emmy'
+            sh "echo $password | sudo -S docker build -t emmylong1/talentplus-integration ."
         }
+    }
+}
+
         
         stage('Push Image to Docker Hub') {
             steps {
