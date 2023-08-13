@@ -45,4 +45,3 @@ Restrict physical access to servers, data centers, and other critical infrastruc
 Implement measures such as access cards, biometric authentication, and surveillance systems.
 
  
-When creating the "TalentPlus" microservices application, there are several processes involved from conception to deployment. To assist you with the procedure, here is a general flowchart.
