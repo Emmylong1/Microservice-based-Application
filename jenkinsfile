@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     dir('microserviceapp') {
-                        sh 'helm datree test .'
+                        sh 'datree test .'
                     }
                 }
             }
