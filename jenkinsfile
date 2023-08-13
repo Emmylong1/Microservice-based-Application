@@ -12,12 +12,9 @@ pipeline {
             }
         }
 
-        stage("Git Checkout") {
+        stage("Git checkout") {
             steps {
-                script {
-                    sh "git config --global credential.helper '!f() { echo password=\$SUDO_PASSWORD; }; f'"
-                    sh "git clone https://github.com/Emmylong1/Microservice-based-Application.git"
-                }
+                git branch: 'main', url: 'https://github.com/Emmylong1/Microservice-based-Application.git'
             }
         }
 
