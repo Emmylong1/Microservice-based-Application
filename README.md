@@ -2,8 +2,11 @@
 
 
 ### Java 11 ( open JDK )
+
 sudo add-apt-repository ppa:openjdk-r/ppa
+
 sudo apt-get update
+
 sudo apt install openjdk-11-jdk
 
 
@@ -14,15 +17,18 @@ sudo add-apt-repository ppa:linuxuprising/java
 sudo apt update
 
 sudo apt-get install oracle-java11-installer
+
 sudo apt-get install oracle-java11-set-default ( to set java 11 as default )
+
 java -version ( verify java installation )
 
 
 ### git installation in ubuntu 22.04
 
-
 apt-get update
+
 apt-get install git
+
 git --version ( to verify git version )
 
 
@@ -35,53 +41,148 @@ curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
    /etc/apt/sources.list.d/jenkins.list > /dev/null
 
+ sudo apt-get update
 
-     sudo apt-get update
  sudo apt-get install fontconfig openjdk-11-jre
+ 
  sudo apt-get install jenkins
 
 
- visit: https://www.jenkins.io/
+ visit:https://www.jenkins.io/
 
 
 ### Docker installation in ubuntu 22.04
+ 
  sudo apt-get update
+
 sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
 sudo apt-key fingerprint 0EBFCD88
+
 sudo apt-get update
+
 sudo apt-get install docker-ce docker-ce-cli containerd.io ( to install latest version )
+
 sudo docker run hello-world
 
 
 ### Installation of Minikube on Ubuntu 22.04
-   Install Dependencies:
-   sudo apt-get update && sudo apt-get install -y curl wget virtualbox
-#   Install Kubectl:
+   
+   # Install Dependencies:
+   
+   sudo apt-get update && sudo apt-get install -y curl wget VirtualBox
+
+# Install Kubectl:
+   
    sudo apt-get update && sudo apt-get install -y apt-transport-https
+
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
 sudo apt-get update
+
 sudo apt-get install -y kubectl
+
 # Install Minikube:
+
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
 # Verify Installation: 
+
 minikube version
+
 # Now that you have installed Minikube, you can start the Kubernetes cluster by running
+
 minikube start
+
 # Verify Cluster
+
 kubectl cluster-info
 
 
 ### Installation of Helm on Ubuntu 22.04
+
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
 chmod 700 get_helm.sh
+
 ./get_helm.sh
 
 
 ### For Monitoring Use The Bash in my Monitoring-script
+
+#!/bin/bash
+
+# Install Prometheus
+wget https://github.com/prometheus/prometheus/releases/download/vX.Y.Z/prometheus-X.Y.Z.linux-amd64.tar.gz
+tar -xvzf prometheus-X.Y.Z.linux-amd64.tar.gz
+cd prometheus-X.Y.Z.linux-amd64
+
+# Create Prometheus configuration file
+cat <<EOF > prometheus.yml
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter-host:9100']
+
+  - job_name: 'your-app'
+    static_configs:
+      - targets: ['your-app-host:your-app-port']
+EOF
+
+# Install Node Exporter for system metrics
+wget https://github.com/prometheus/node_exporter/releases/download/vX.Y.Z/node_exporter-X.Y.Z.linux-amd64.tar.gz
+tar -xvzf node_exporter-X.Y.Z.linux-amd64.tar.gz
+cd node_exporter-X.Y.Z.linux-amd64
+./node_exporter &
+
+# Install Grafana
+sudo apt-get update
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+sudo apt-get update
+sudo apt-get install grafana
+
+# Start Grafana service
+sudo systemctl start grafana-server
+sudo systemctl enable grafana-server
+
+# Install Elasticsearch, Logstash, Kibana (ELK Stack)
+# Follow official installation guides for each component
+
+# Configure Logstash
+cat <<EOF > logstash.conf
+input {
+  beats {
+    port => 5044
+  }
+}
+
+filter {
+  # Add filters if needed
+}
+
+output {
+  elasticsearch {
+    hosts => ["http://localhost:9200"]
+  }
+}
+EOF
+
+# Start Logstash
+/path/to/logstash/bin/logstash -f /path/to/logstash.conf &
+
+# Access Grafana at http://your-server-ip:3000 and set up data sources and dashboards
+# Access Kibana at http://your-server-ip:5601 to configure index patterns and visualize logs
 
 
 ### Building a 3-Tier Architecture for in AWS using Terraform
