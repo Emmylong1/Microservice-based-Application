@@ -1,4 +1,4 @@
-### Microservice-based-Application README.md
+# Microservice-based-Application README.md
 
 
 ### Java 11 ( open JDK )
@@ -156,8 +156,8 @@ sudo apt-get install grafana
 sudo systemctl start grafana-server
 sudo systemctl enable grafana-server
 
-# Install Elasticsearch, Logstash, Kibana (ELK Stack)
-# Follow official installation guides for each component
+Install Elasticsearch, Logstash, Kibana (ELK Stack)
+Follow official installation guides for each component
 
 # Configure Logstash
 cat <<EOF > logstash.conf
@@ -181,8 +181,8 @@ EOF
 # Start Logstash
 /path/to/logstash/bin/logstash -f /path/to/logstash.conf &
 
-# Access Grafana at http://your-server-ip:3000 and set up data sources and dashboards
-# Access Kibana at http://your-server-ip:5601 to configure index patterns and visualize logs
+#Access Grafana at http://your-server-ip:3000 and set up data sources and dashboards
+#Access Kibana at http://your-server-ip:5601 to configure index patterns and visualize logs
 
 
 ### Building a 3-Tier Architecture for in AWS using Terraform
