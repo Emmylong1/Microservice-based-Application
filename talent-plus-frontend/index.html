@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+
+  <head>
+
+    <title>WELCOME TO TALENT PLUS ACADEMIC</title>
+
+  </head>
+
+  <body>
+
+    Content goes here! (Things like paragraphs, links, and images.)
+
+    <button onclick="lickMe()" id="submitting" class="btn btn-success" type="submit">
+
+      <i class="fa fa-spinner fa-spin spin noSpin"></i><span>Quick Search</span>
+
+    </button>
+
+  </body>
+
+</html>
+
+
+
+<script>
+
+ 
+
+
+
+  function lickMe() {
+
+    console.log('I reach here')
+
+
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+
+    if (this.readyState == 4 && this.status == 200) {
+
+       // Typical action to be performed when the document is ready:
+
+        var response = xhttp.responseText;
+
+        console.log(response);
+
+      }
+
+    };
+
+    var param ={
+
+      "email": "emmanuel.ibok",
+
+      "password": "ghabgjgygyug"
+
+    }
+
+    xhttp.open("POST", 'http://localhost:8080/talentplus/getname', true);
+
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+
+    xhttp.setRequestHeader('clientId', 'limospay');
+
+    xhttp.withCredentials = false;
+
+    xhttp.send(JSON.stringify(param));
+
+  console.log('I reach here 2');
+
+}
+
+ 
+
+</script>
