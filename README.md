@@ -8,8 +8,11 @@ sudo apt install openjdk-11-jdk
 
 
 ### JAVA 11 installation in ubuntu 22.04
+
 sudo add-apt-repository ppa:linuxuprising/java
+
 sudo apt update
+
 sudo apt-get install oracle-java11-installer
 sudo apt-get install oracle-java11-set-default ( to set java 11 as default )
 java -version ( verify java installation )
