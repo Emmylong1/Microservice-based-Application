@@ -1,5 +1,106 @@
-# Microservice-based-Application
-Here are some important security measures that you should consider implementing:
+###### Microservice-based-Application README.md
+
+### Java 11 ( open JDK )
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt-get update
+sudo apt install openjdk-11-jdk
+
+
+### JAVA 11 installation in ubuntu 22.04
+sudo add-apt-repository ppa:linuxuprising/java
+sudo apt update
+sudo apt-get install oracle-java11-installer
+sudo apt-get install oracle-java11-set-default ( to set java 11 as default )
+java -version ( verify java installation )
+
+
+### git installation in ubuntu 22.04
+
+
+apt-get update
+apt-get install git
+git --version ( to verify git version )
+
+
+### Jenkins installation in ubuntu 22.04
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+
+    echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+   /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+
+     sudo apt-get update
+ sudo apt-get install fontconfig openjdk-11-jre
+ sudo apt-get install jenkins
+
+
+ visit: https://www.jenkins.io/
+
+
+### Docker installation in ubuntu 22.04
+ sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-key fingerprint 0EBFCD88
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io ( to install latest version )
+sudo docker run hello-world
+
+
+### Installation of Minikube on Ubuntu 22.04
+   Install Dependencies:
+   sudo apt-get update && sudo apt-get install -y curl wget virtualbox
+#   Install Kubectl:
+   sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+# Install Minikube:
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+# Verify Installation: 
+minikube version
+# Now that you have installed Minikube, you can start the Kubernetes cluster by running
+minikube start
+# Verify Cluster
+kubectl cluster-info
+
+
+### Installation of Helm on Ubuntu 22.04
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+chmod 700 get_helm.sh
+./get_helm.sh
+
+
+### For Monitoring Use The Bash in my Monitoring-script
+
+
+### Building a 3-Tier Architecture for in AWS using Terraform
+In this project, we will build a the architecture for a web app in AWS.
+
+
+The main.tf files contains almost all the configuration needed to provision the infrastructure.
+
+
+To kick if off, add or export your AWS CLI credentials and run the following commands from your terminal
+
+
+terraform init
+
+
+terraform plan --var-file=testing.tfvars
+
+
+terraform apply --var-file=testing.tfvar
+
+
+
+### Here are some important security measures that you should consider implementing:
 
 #1. strong passwords and authentication:
 Enforce the use of strong, complex passwords.
