@@ -32,23 +32,7 @@ pipeline {
             }
         }
 
-        stage('Helm Deploy') {
-            steps {
-                script {
-                    def helmChart = "microserviceapp"  
-                    def releaseName = "springboot"  
-                    def namespace = "helm-deployment"
-                    def imageTag = env.BUILD_NUMBER
-
-                    sh "helm upgrade ${releaseName} --install ${helmChart} --namespace ${namespace} --set image.tag=${imageTag}"
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            sh 'rm -rf *'
-        }
+          stage('Build Docker Image'){
+        sh 'docker build -t dockerhandson/spring-boot-mongo .'
     }
 }
