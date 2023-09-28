@@ -1,0 +1,37 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: talentplus-app
+  namespace: default
+  labels:
+    app: talentplus-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: talentplus-app
+  template:
+    metadata:
+      labels:
+        app: talentplus-app
+    spec:
+      containers:
+      - name: talentplus-app
+        image: "emmylong1/talentplus-integration"
+        ports:
+          - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: talentplus-app
+  namespace: default
+spec:
+  selector:
+    app: talentplus-app
+  type: LoadBalancer
+  ports:
+  - name: http
+    targetPort: 3000
+    port: 80
